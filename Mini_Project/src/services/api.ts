@@ -4,10 +4,12 @@ import axios from "axios";
  * Single axios instance for the CampusFix REST API.
  * Point it at your Express backend with VITE_API_BASE_URL (e.g. http://localhost:5000).
  */
-export const API_BASE_URL = (import.meta.env["VITE_API_BASE_URL"] as string | undefined) ?? "";
+export const API_BASE_URL =
+  (import.meta.env["VITE_API_BASE_URL"] as string | undefined) ||
+  "https://mini-project-ihlw.onrender.com";
 
 /** When no backend URL is configured we serve realistic demo data locally. */
-export const USE_MOCK_API = !API_BASE_URL;
+export const USE_MOCK_API = false;
 
 export const TOKEN_KEY = "campusfix_token";
 
