@@ -17,23 +17,26 @@ const app = express();
 
 // CORS setup
 const allowedOrigins = [
-  process.env.CLIENT_ORIGIN || "http://localhost:3000",
-  "http://localhost:8000",
+  process.env.CLIENT_ORIGIN,
+  "https://rgukt-mini-project.netlify.app",
+  "http://localhost:5173",
+  "http://localhost:3000",
   "http://127.0.0.1:5173",
   "http://localhost:5174",
-];
+].filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl)
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== "production") {
         callback(null, true);
       } else {
-        callback(null, true); // Permissive in dev mode for flexibility
+        callback(null, true);
       }
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
 
