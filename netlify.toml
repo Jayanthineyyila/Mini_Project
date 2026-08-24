@@ -1,7 +1,6 @@
 [build]
-  base = "Mini_Project"
-  command = "npm run build"
-  publish = ".output/public"
+  command = "cd Mini_Project && npm install && npm run build"
+  publish = "Mini_Project/.output/public"
 
 [build.environment]
   NODE_VERSION = "20"
