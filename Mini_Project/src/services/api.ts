@@ -12,7 +12,7 @@ export const API_BASE_URL =
 export const USE_MOCK_API = false;
 
 export const TOKEN_KEY = "campusfix_token";
-
+ 
 export function getToken(): string | null {
   if (typeof window === "undefined") return null;
   return window.localStorage.getItem(TOKEN_KEY);
