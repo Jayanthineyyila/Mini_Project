@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
-import { connectDB } from "./config/db.js";
+import { connectDB, checkDBConnection } from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import complaintRoutes from "./routes/complaint.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
@@ -51,10 +51,10 @@ const authLimiter = rateLimit({
   },
 });
 
-// Routes
-app.use("/api/auth", authLimiter, authRoutes);
-app.use("/api/complaints", complaintRoutes);
-app.use("/api/admin", adminRoutes);
+// Routes with DB connection check
+app.use("/api/auth", checkDBConnection, authLimiter, authRoutes);
+app.use("/api/complaints", checkDBConnection, complaintRoutes);
+app.use("/api/admin", checkDBConnection, adminRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
